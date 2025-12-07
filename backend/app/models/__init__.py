@@ -21,7 +21,9 @@ class Idea(SQLModel, table=True):
     id: UUID = Field(default_factory=uuid4, primary_key=True)
     title: Optional[str] = None
     status: IdeaStatus = IdeaStatus.DRAFT
-    audio_path: Optional[str] = None
+    audio_path: Optional[str] = None  # Deprecated, use audio_blob
+    audio_blob: Optional[bytes] = Field(default=None, sa_column_kwargs={"type_": "LargeBinary"})
+    audio_size: Optional[int] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
